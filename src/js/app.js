@@ -1,10 +1,20 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
+import thunkMiddleware from 'redux-thunk'
+import { createStore, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
 
-class App extends Component {
-    render() {
-        <div>Hello</div>
-    }
-}
+import { reducer } from './reducer'
+import { App } from './containers'
 
-render(<App />, document.getElementById('app'));
+const store = createStore(
+    reducer,
+    applyMiddleware(thunkMiddleware)
+)
+
+render(
+    <Provider store={ store }>
+        <App />
+    </Provider>,
+    document.getElementById('app')
+);
